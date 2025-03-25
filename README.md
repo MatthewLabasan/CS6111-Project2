@@ -1,7 +1,7 @@
 # CS6111-Project2
-## Getting Started
+# Getting Started
 
-### Prerequisites
+## Prerequisites
 1. Python 3.8.1 or higher
 2. Install `wget` using `brew install wget`
   - Make sure to restart your terminal after this installation.
@@ -9,7 +9,7 @@
 4. Google Search Engine Key
 5. Google Gemini 2.0 Flash model (free tier) API Key
 
-### Installation
+## Installation
 The following is includes all instructions from [project 2's description](https://www.cs.columbia.edu/~gravano/cs6111/Proj2/).
 1. Install requirements.txt
 2. Install trained SpanBERT
