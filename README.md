@@ -10,6 +10,7 @@
 5. Google Gemini 2.0 Flash model (free tier) API Key
 
 ### Installation
+The following is includes all instructions from [project 2's description](https://www.cs.columbia.edu/~gravano/cs6111/Proj2/).
 1. Install requirements.txt
 2. Install trained SpanBERT
   The SpanBERT classifier to extract the following four types of relations from text documents:
