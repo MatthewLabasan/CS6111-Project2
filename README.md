@@ -27,3 +27,5 @@ The following is includes all instructions from [project 2's description](https:
 
 
 Note: This repository is built on Python 3.11.5. The Google Console is in Python 3.8.1. When setting up on the console, may need to downgrade versions in `requirements.txt`. Account for this before submission.
+
+Note: Per project requirement, main logic is located in SpanBERT folder.
