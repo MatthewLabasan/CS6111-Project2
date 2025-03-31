@@ -81,46 +81,6 @@ def extract_relations(sentences, relation_type, gemini_api_key, model_name="gemi
                 time.sleep(10)
     
     return extracted_relations
-<<<<<<< HEAD
-'''
-# Generate response to prompt
-def get_gemini_completion(prompt, model_name="gemini-2.0-flash", max_tokens=200, temperature=0.2, top_p=1, top_k=32):
-    # Initialize a generative model
-    model = genai.GenerativeModel(model_name)
-
-    # Configure the model with your desired parameters
-    generation_config = genai.types.GenerationConfig(
-        max_output_tokens=max_tokens,
-        temperature=temperature,
-        top_p=top_p,
-        top_k=top_k
-    )
-
-    # Generate a response
-    response = model.generate_content(prompt, generation_config=generation_config)
-
-    return response.text.strip() if response.text else "No response received"
-
-def main():
-    # Sample Prompt
-    prompt_text = """Given a sentence, extract all the Nouns.
-sentence: Rob is an engineer at NASA and he lives in California.
-extracted:"""
-
-    # Feel free to modify the parameters below.
-    # Documentation: https://cloud.google.com/vertex-ai/docs/generative-ai/model-reference/gemini
-    model_name = "gemini-2.0-flash"
-    max_tokens = 100
-    temperature = 0.2
-    top_p = 1
-    top_k = 32
-
-    response_text = get_gemini_completion(prompt_text, model_name, max_tokens, temperature, top_p, top_k)
-    print(response_text)
-
-main()
-'''
-=======
 
 def extract_json_from_text(text):
     """
@@ -134,4 +94,4 @@ def extract_json_from_text(text):
         return match.group(1)
     
     return None
->>>>>>> 9930d66604d629a37b9dc5628621caf1b1264bec
+
