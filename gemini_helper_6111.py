@@ -40,10 +40,14 @@ def extract_relations(sentences, relation_type, gemini_api_key, model_name="gemi
             Sentence: "{sentence.text}"
 
             For the relation '{relation_name}':
-            - If relation type is Schools_Attended: Extract all (PERSON, ORGANIZATION) pairs where the PERSON attended the ORGANIZATION as a school.
-            - If relation type is Work_For: Extract all (PERSON, ORGANIZATION) pairs where the PERSON works for the ORGANIZATION.
+            - If relation type is Schools_Attended: Extract all (PERSON, ORGANIZATION) pairs where the PERSON attended the ORGANIZATION as a school (ignore alumni association).
+                - examples: (Obama, Columbia University), (Larry Page, Stanford University)
+            - If relation type is Work_For: Extract all (PERSON, ORGANIZATION) pairs where the PERSON works for the ORGANIZATION as a company or institution.
+                - examples: (Bill Gate, Microsoft), (Mark Zuckerberg, Meta)
             - If relation type is Live_In: Extract all (PERSON, LOCATION) pairs where the PERSON lives in the LOCATION.
-            - If relation type is Top_Member_Employees: Extract all (ORGANIZATION, PERSON) pairs where the PERSON is a top member or employee of the ORGANIZATION.
+                - examples: (Sundar Pichai, Los Altos Hills)
+            - If relation type is Top_Member_Employees: Extract all (ORGANIZATION, PERSON) pairs where the PERSON is a top member or employee of the ORGANIZATION as a company or institution.
+                - examples: (Bill Gate, Microsoft), (Mark Zuckerberg, Meta)
 
             Provide the output in JSON format like this:
             {{
@@ -84,7 +88,12 @@ def extract_relations(sentences, relation_type, gemini_api_key, model_name="gemi
                 obj = relation.get("object")
                 
                 if subject and obj:
-                    print(f"found relation: [subject: {subject}, object: {obj}]")
+                    print(f"""
+                    === Extracted Relation ===
+                    Sentence:  {sentence}
+                    Subject: {subject} ; Object: {obj} ;
+                    Adding to set of extracted relations
+                    ==========""")
                     relation_tuple = (subject, relation_name, obj)
                     extracted_relations[relation_tuple] = 1.0
         except Exception as e:
