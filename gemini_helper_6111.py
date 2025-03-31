@@ -3,11 +3,18 @@ import google.generativeai as genai
 import time
 import re
 
-# Apply Gemini API Key
-
 def extract_relations(sentences, relation_type, gemini_api_key, model_name="gemini-2.0-flash"):
     '''
     Extracts relations from sentences using Google Gemini API
+    
+    Args:
+        sentences: List of sentences (spacy)
+        relation_type: Integer representing relation type (1-4)
+        gemini_api_key: API key for Gemini
+        model_name: Model name to use (default: gemini-2.0-flash)
+    
+    Returns:
+        Dictionary of extracted relations
     '''
 
     genai.configure(api_key = gemini_api_key)
@@ -43,7 +50,9 @@ def extract_relations(sentences, relation_type, gemini_api_key, model_name="gemi
             }}
 
             If no relations are found, return an empty list: {{"relations": []}}
-
+            
+            Please ignore common nouns such as (he, she, city, company, etc.) when extracting
+            Only consider proper nouns such as Charles, Google, San Francisco, etc.
             please make sure to return just the JSON with no additional comment or text
             """
             
@@ -95,3 +104,38 @@ def extract_json_from_text(text):
     
     return None
 
+
+def filter_sentences_by_entity_types(sentences, relation_type):
+    """
+    Filters sentences to include only those with the required entity types for the relation
+    
+    Parameters:
+    - sentences: spaCy sentences
+    - relation_type: Integer representing relation type (1-4)
+    
+    Returns:
+    - List of eligible sentences
+    """
+    eligible_sentences = []
+    
+    relation_types = {
+        1: ("PERSON", "ORGANIZATION"),
+        2: ("PERSON", "ORGANIZATION"),
+        3: ("PERSON", "LOCATION", "CITY", "STATE_OR_PROVINCE", "COUNTRY"),
+        4: ("ORGANIZATION", "PERSON") 
+    }
+    
+    for sentence in sentences:
+        entity_types = set()
+        for ent in sentence.ents:
+            entity_types.add(ent.label_)
+        
+        # Check if sentence has required entity types
+        if relation_type == 3: #lives in relation
+            if "PERSON" in entity_types and ("GPE" in entity_types or "LOC" in entity_types):
+                eligible_sentences.append(sentence)
+        else:
+            if relation_types[relation_type].issubset(entity_types):
+                eligible_sentences.append(sentence)
+    
+    return eligible_sentences

@@ -8,7 +8,7 @@ from spanbert import SpanBERT
 from itertools import permutations
 import re
 from collections import defaultdict
-from gemini_helper_6111 import extract_relations
+from gemini_helper_6111 import extract_relations, filter_sentences_by_entity_types
 
 def search(GSAPI, GSEID, query) -> dict:
   """
@@ -45,6 +45,18 @@ def search(GSAPI, GSEID, query) -> dict:
   return res
 
 def main():
+  """
+  Main Extraction Method
+  Args:
+      1. Extraction Method (str): SpanBERT or Gemini
+      2. GSAPI (str): Google Search API Key
+      3. GSEID (str): Google Search Engine ID
+      4. GEMINI API (str): Google Gemini API
+      5. r (int): extraction relation
+      6. t (float): confidence threshold (0-1)
+      7. q (str): seed query
+      8. k (int): number of tuples
+  """
   # Get arguments
   try:
     EXTRACTION_METHOD = sys.argv[1]
@@ -158,6 +170,7 @@ def main():
 
         except Exception as e: # Bad request, timeout, etc.
           print(f"Retrieval Error for {url[0:25]}... : {e}")
+          print("skipping url...")
           continue
         
         # Apply spacy model to raw text (to split to sentences, tokenize, extract entities etc.)
@@ -203,13 +216,19 @@ def main():
 
           print("\tExtracting relations using Google Gemini...")
           sentences = doc.sents
-          gemini_results = extract_relations(sentences, r, GEMINI_API)
-          for result in gemini_results:
-            extracted_tuples[result] = 1
+          eligible_sentences = filter_sentences_by_entity_types(sentences, r)
+          print(f"Filtered {len(sentences)} sentences down to {len(eligible_sentences)} with required entity types")
+          if eligible_sentences:
+            gemini_results = extract_relations(eligible_sentences, r, GEMINI_API)
+            for result in gemini_results:
+              extracted_tuples[result] = 1
 
-          result = set(extracted_tuples.items())
-          print(f"\tFound {len(gemini_results)} relations in this webpage")
-          
+            result = set(extracted_tuples.items())
+            print(f"\tFound {len(gemini_results)} relations in this webpage")
+            X.add(result)
+          else:
+             print(f"No sentences with required entity types found for relation type {r}")
+
       else:
         print(f"URL ( {index} / {len(urls)}): {url}")
         print(f"\t Already seen. Skipping...")
