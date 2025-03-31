@@ -69,7 +69,7 @@ def extract_relations(sentences, relation_type, gemini_api_key, model_name="gemi
                 time.sleep(10)
     
     return extracted_relations
-
+'''
 # Generate response to prompt
 def get_gemini_completion(prompt, model_name="gemini-2.0-flash", max_tokens=200, temperature=0.2, top_p=1, top_k=32):
     # Initialize a generative model
@@ -106,3 +106,4 @@ extracted:"""
     print(response_text)
 
 main()
+'''
