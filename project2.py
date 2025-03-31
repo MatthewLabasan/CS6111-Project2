@@ -130,7 +130,7 @@ def main():
   """)
 
   # Iteration Loop
-  while len(X) < k:
+  while len(X) <= k:
     # Get URLs from Google Search
     urls = []
     results = search(GSAPI, GSEID, current_query)['items']
@@ -224,7 +224,8 @@ def main():
 
             result = set(extracted_tuples.items())
             print(f"\tFound {len(gemini_results)} relations in this webpage")
-            X.add(result)
+            X.update(result)
+            print(f"Overall size of entities: {len(X)}")
           else:
              print(f"No sentences with required entity types found for relation type {r}")
 

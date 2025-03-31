@@ -33,7 +33,7 @@ def extract_relations(sentences, relation_type, gemini_api_key, model_name="gemi
     for sentence in sentences:
         sentence_i +=1
         if(sentence_i % 5 == 0):
-            print(f"finished processing {sentence_i} documents")
+            print(f"Processed {sentence_i} / {len(sentences)} sentences")
         time.sleep(3)
         try:
             prompt = f"""Extract '{relation_name}' relations from the following sentence. 
@@ -87,7 +87,7 @@ def extract_relations(sentences, relation_type, gemini_api_key, model_name="gemi
                     relation_tuple = (subject, relation_name, obj)
                     extracted_relations[relation_tuple] = 1.0
         except Exception as e:
-            print(f"\t\tError calling Gemini API: {e}")
+            # print(f"\t\tError calling Gemini API: {e}")
             if "429" in str(e) or "500" in str(e):
                 print("\t\tHit rate limit or server error, waiting 10 seconds...")
                 time.sleep(10)
