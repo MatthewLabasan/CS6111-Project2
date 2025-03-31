@@ -8,7 +8,7 @@ from spanbert import SpanBERT
 from itertools import permutations
 import re
 from collections import defaultdict
-from gemini_helper_6111 import extract_relations, filter_sentences_by_entity_types
+from gemini_helper_6111 import extract_relations as gemini_extract_relations, filter_sentences_by_entity_types
 
 def search(GSAPI, GSEID, query) -> dict:
   """
@@ -218,7 +218,7 @@ def main():
           sentences = doc.sents
           eligible_sentences = filter_sentences_by_entity_types(sentences, r)
           if eligible_sentences:
-            gemini_results = extract_relations(eligible_sentences, r, GEMINI_API)
+            gemini_results = gemini_extract_relations(eligible_sentences, r, GEMINI_API)
             for result in gemini_results:
               extracted_tuples[result] = 1
 
