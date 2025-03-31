@@ -233,7 +233,7 @@ def main():
           found_new = False
           for relation in X:
             new_q = f"{relation[0][0]} {relation[0][2]}"
-            if new_q not in previous_queries:
+            if new_q.lower() not in previous_queries:
                 current_query = new_q
                 previous_queries.append(new_q)
                 found_new = True
