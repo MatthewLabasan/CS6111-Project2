@@ -130,7 +130,7 @@ def main():
   """)
 
   # Iteration Loop
-  while len(X) <= k:
+  while len(X) < k:
     # Get URLs from Google Search
     urls = []
     results = search(GSAPI, GSEID, current_query)['items']
@@ -271,10 +271,10 @@ def main():
     print(f"\n================== TOP-{k} GEMINI RELATIONS for {relation_of_interest} ( Total Found: {len(X)} ) =================")
     result_count = min(len(X), k)
     print(f"Returning top {result_count} relations:")
-        
-    for i in range(result_count):
-        relation = X[i]
-        print(f"Confidence: {relation[1]:.1f} \t\t| Subject: {relation[0][0]} \t\t| Object: {relation[0][2]}")
+    print(X)
+    # for i in range(result_count):
+    #     relation = X[i]
+    #     print(f"Confidence: {relation[1]:.1f} \t\t| Subject: {relation[0][0]} \t\t| Object: {relation[0][2]}")
 
   print(f"Total # of iterations = {iteration_count}")
 

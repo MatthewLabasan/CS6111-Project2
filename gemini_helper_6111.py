@@ -84,6 +84,7 @@ def extract_relations(sentences, relation_type, gemini_api_key, model_name="gemi
                 obj = relation.get("object")
                 
                 if subject and obj:
+                    print(f"found relation: [subject: {subject}, object: {obj}]")
                     relation_tuple = (subject, relation_name, obj)
                     extracted_relations[relation_tuple] = 1.0
         except Exception as e:
@@ -140,7 +141,6 @@ def filter_sentences_by_entity_types(sentences, relation_type):
         else:
             invalid = False
             entities = required_entities[relation_type]
-            print(f"required entities: {entities}")
             for entity in entities:
                 if entity not in entity_types:
                     invalid = True
