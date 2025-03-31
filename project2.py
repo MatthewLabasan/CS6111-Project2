@@ -8,7 +8,7 @@ from spanbert import SpanBERT
 from itertools import permutations
 import re
 from collections import defaultdict
-from gemini_helper_6111 import extract_relations as gemini_extract_relations
+# from gemini_helper_6111 import extract_relations as gemini_extract_relations
 
 def search(GSAPI, GSEID, query) -> dict:
   """
@@ -244,12 +244,12 @@ def main():
           
   # Return top-k Tuples
   if EXTRACTION_METHOD == "-spanbert":
-    print(f"\n================== ALL RELATIONS for {relation_of_interest} ( {len(X)} ) =================")
+    print(f"\n================== TOP-{k} SPANBERT RELATIONS for {relation_of_interest} ( Total Found: {len(X)} ) =================")
     for i, relation in enumerate(X[:k]):
       print(f"Confidence: {relation[1]:.8f} \t\t\t| Subject: {relation[0][0]} \t\t\t| Object: {relation[0][2]}")
 
   if EXTRACTION_METHOD == "-gemini":
-    print(f"\n================== FINAL GEMINI RELATIONS for {relation_of_interest} ( {len(X)} ) =================")
+    print(f"\n================== TOP-{k} GEMINI RELATIONS for {relation_of_interest} ( Total Found: {len(X)} ) =================")
     result_count = min(len(X), k)
     print(f"Returning top {result_count} relations:")
         
