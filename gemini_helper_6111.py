@@ -42,7 +42,7 @@ def extract_relations(sentences, relation_type, gemini_api_key, model_name="gemi
             For the relation '{relation_name}':
             - If relation type is Schools_Attended: Extract all (PERSON, ORGANIZATION) pairs where the PERSON attended the ORGANIZATION as a school (ignore alumni association).
                 - examples: (Obama, Columbia University), (Larry Page, Stanford University)
-            - If relation type is Work_For: Extract all (PERSON, ORGANIZATION) pairs where the PERSON works for the ORGANIZATION as a company or institution.
+            - If relation type is Work_For: Extract all (PERSON, ORGANIZATION) pairs where the PERSON (individual person) works for the ORGANIZATION as a company or institution.
                 - examples: (Bill Gate, Microsoft), (Mark Zuckerberg, Meta)
             - If relation type is Live_In: Extract all (PERSON, LOCATION) pairs where the PERSON lives in the LOCATION.
                 - examples: (Sundar Pichai, Los Altos Hills)
