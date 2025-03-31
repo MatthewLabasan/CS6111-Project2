@@ -8,7 +8,7 @@ from spanbert import SpanBERT
 from itertools import permutations
 import re
 from collections import defaultdict
-# from gemini_helper_6111 import get_gemini_completion
+from gemini_helper_6111 import extract_relations
 
 def search(GSAPI, GSEID, query) -> dict:
   """
@@ -179,17 +179,36 @@ def main():
           # Add to sorted list
           result = set(extracted_tuples.items())
           X = (sorted(result, key=lambda x: x[1], reverse=True))
+          
+        elif EXTRACTION_METHOD == "-gemini":
+          '''
+           if -gemini is specified, identify all the tuples that have been extracted and add 
+           them to set X (we do not receive extraction confidence values from the Google Gemini API,
+             so feel free to hard-code in a value of 1.0 for the confidence value for all 
+             Gemini-extracted tuples).
 
-        if EXTRACTION_METHOD == "-gemini":
+              If -gemini is specified, your output can have the tuples in any order (if you have more 
+              than k tuples, then you can return an arbitrary subset of k tuples). (Alternatively, 
+              you can return all of the tuples in X, not just the top-k such tuples; 
+              this is what the reference implementation does.)
+
+              Otherwise, select from X a tuple y such that (1) y has not been used for querying yet 
+              and (2) if -spanbert is specified, y has an extraction confidence that is highest among
+                the tuples in X that have not yet been used for querying. (You can break ties
+                arbitrarily.) Create a query q from tuple y by just concatenating the attribute values
+                  together, and go to Step 2. If no such y tuple exists, then stop. (ISE has 
+                  "stalled" before retrieving k high-confidence tuples.)
+
+          '''
+
           print("\tExtracting relations using Google Gemini...")
-          sentences = list(doc.sents)
-          res = get_gemini_completion(
-              sentences
-          )
-          for result in res:
-            extracted_tuples[result] = res[result]
-          url_relations = len(res)
-          print(f"\tExtracted {url_relations} relations from this website")
+          sentences = doc.sents
+          gemini_results = extract_relations(sentences, r, GEMINI_API)
+          for result in gemini_results:
+            extracted_tuples[result] = 1
+
+          result = set(extracted_tuples.items())
+          print(f"\tFound {len(gemini_results)} relations in this webpage")
           
       else:
         print(f"URL ( {index} / {len(urls)}): {url}")
@@ -207,23 +226,21 @@ def main():
             new_query_found = True
             break
         # No new query extracted
-        if not new_query_found:
-          print('ISE has "stalled" before retrieving k high-confidence tuples.')
-          break
-      elif EXTRACTION_METHOD == "-gemini":
-        new_query_found = False
-        for relation in X:# TODO: Did you mean extracted_tuples / meant to use X in the extraction method?
-          new_q = f"{relation[0][0]} {relation[0][2]}"
-          if new_q.lower() not in previous_queries:
-            current_query = new_q
-            previous_queries.add(new_q.lower())
-            new_query_found = True
-            break
-        # No new query extracted
-        if not new_query_found:
-          print('ISE has "stalled" before retrieving k high-confidence tuples.')
-          break
+        print('ISE has "stalled" before retrieving k high-confidence tuples.')
+        break
 
+      if EXTRACTION_METHOD == "-gemini":
+          found_new = False
+          for relation in X:
+            new_q = f"{relation[0][0]} {relation[0][2]}"
+            if new_q not in previous_queries:
+                current_query = new_q
+                previous_queries.append(new_q)
+                found_new = True
+                break
+          if not found_new:
+                  print('ISE has "stalled" before retrieving k high-confidence tuples.')
+                  break
   # Return top-k Tuples
   if EXTRACTION_METHOD == "-spanbert":
     print(f"\n================== ALL RELATIONS for {relation_of_interest} ( {len(X)} ) =================")
@@ -231,10 +248,14 @@ def main():
       print(f"Confidence: {relation[1]:.8f} \t\t\t| Subject: {relation[0][0]} \t\t\t| Object: {relation[0][2]}")
 
   if EXTRACTION_METHOD == "-gemini":
-    print(f"\n================== ALL RELATIONS for {readable_relation_names[r]} ({len(X)}) =================")
-    # For Gemini, we can return any k tuples (they all have confidence 1.0)
-    for i, relation in enumerate(X[:k]):
-      print(f"Confidence: {relation[1]:.8f} \t\t\t| Subject: {relation[0][0]} \t\t\t| Object: {relation[0][2]}")
+    print(f"\n================== FINAL GEMINI RELATIONS ( {len(X)} ) =================")
+    result_count = min(len(X), k)
+    print(f"Returning top {result_count} relations:")
+        
+    for i in range(result_count):
+        relation = X[i]
+        print(f"Confidence: {relation[1]:.1f} \t| Subject: {relation[0][0]} \t| Object: {relation[0][2]}")
+    exit()
 
   print(f"Total # of iterations = {iteration_count}")
 
