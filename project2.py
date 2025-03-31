@@ -8,7 +8,7 @@ from spanbert import SpanBERT
 from itertools import permutations
 import re
 from collections import defaultdict
-# from gemini_helper_6111 import extract_relations as gemini_extract_relations
+from gemini_helper_6111 import extract_relations as gemini_extract_relations
 
 def search(GSAPI, GSEID, query) -> dict:
   """
@@ -256,7 +256,6 @@ def main():
     for i in range(result_count):
         relation = X[i]
         print(f"Confidence: {relation[1]:.1f} \t\t| Subject: {relation[0][0]} \t\t| Object: {relation[0][2]}")
-    exit()
 
   print(f"Total # of iterations = {iteration_count}")
 
