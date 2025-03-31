@@ -116,6 +116,7 @@ def filter_sentences_by_entity_types(sentences, relation_type):
     Returns:
     - List of eligible sentences
     """
+    sentences = list(sentences)
     eligible_sentences = []
     
     required_entities = {
@@ -140,5 +141,5 @@ def filter_sentences_by_entity_types(sentences, relation_type):
                     continue
 
             eligible_sentences.append(sentence)
-    
+    print(f"Filtered {len(sentences)} sentences down to {len(eligible_sentences)} with required entity types") 
     return eligible_sentences

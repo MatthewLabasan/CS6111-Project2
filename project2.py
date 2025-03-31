@@ -217,7 +217,6 @@ def main():
           print("\tExtracting relations using Google Gemini...")
           sentences = doc.sents
           eligible_sentences = filter_sentences_by_entity_types(sentences, r)
-          print(f"Filtered {len(sentences)} sentences down to {len(eligible_sentences)} with required entity types")
           if eligible_sentences:
             gemini_results = extract_relations(eligible_sentences, r, GEMINI_API)
             for result in gemini_results:
