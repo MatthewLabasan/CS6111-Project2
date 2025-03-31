@@ -241,6 +241,7 @@ def main():
           if not found_new:
                   print('ISE has "stalled" before retrieving k high-confidence tuples.')
                   break
+          
   # Return top-k Tuples
   if EXTRACTION_METHOD == "-spanbert":
     print(f"\n================== ALL RELATIONS for {relation_of_interest} ( {len(X)} ) =================")
@@ -248,13 +249,13 @@ def main():
       print(f"Confidence: {relation[1]:.8f} \t\t\t| Subject: {relation[0][0]} \t\t\t| Object: {relation[0][2]}")
 
   if EXTRACTION_METHOD == "-gemini":
-    print(f"\n================== FINAL GEMINI RELATIONS ( {len(X)} ) =================")
+    print(f"\n================== FINAL GEMINI RELATIONS for {relation_of_interest} ( {len(X)} ) =================")
     result_count = min(len(X), k)
     print(f"Returning top {result_count} relations:")
         
     for i in range(result_count):
         relation = X[i]
-        print(f"Confidence: {relation[1]:.1f} \t| Subject: {relation[0][0]} \t| Object: {relation[0][2]}")
+        print(f"Confidence: {relation[1]:.1f} \t\t| Subject: {relation[0][0]} \t\t| Object: {relation[0][2]}")
     exit()
 
   print(f"Total # of iterations = {iteration_count}")
