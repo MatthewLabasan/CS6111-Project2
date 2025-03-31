@@ -3,8 +3,6 @@ import google.generativeai as genai
 import time
 
 # Apply Gemini API Key
-GEMINI_API_KEY = ''  # Substitute your own key here
-genai.configure(api_key=GEMINI_API_KEY)
 
 def extract_relations(sentences, relation_type, gemini_api_key, model_name="gemini-2.0-flash"):
     '''

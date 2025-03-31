@@ -8,7 +8,7 @@ from spanbert import SpanBERT
 from itertools import permutations
 import re
 from collections import defaultdict
-from gemini_helper_6111 import extract_relations as gemini_extract_relations
+from gemini_helper_6111 import extract_relations
 
 def search(GSAPI, GSEID, query) -> dict:
   """
@@ -203,7 +203,7 @@ def main():
 
           print("\tExtracting relations using Google Gemini...")
           sentences = doc.sents
-          gemini_results = gemini_extract_relations(sentences, r, GEMINI_API)
+          gemini_results = extract_relations(sentences, r, GEMINI_API)
           for result in gemini_results:
             extracted_tuples[result] = 1
 
