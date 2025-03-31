@@ -8,7 +8,7 @@ from spanbert import SpanBERT
 from itertools import permutations
 import re
 from collections import defaultdict
-from gemini_helper_6111 import get_gemini_completion
+# from gemini_helper_6111 import get_gemini_completion
 
 def search(GSAPI, GSEID, query) -> dict:
   """
@@ -44,18 +44,6 @@ def search(GSAPI, GSEID, query) -> dict:
   
   return res
 
-def add_urls(results, urls):
-  """
-  Takes URL's from Google search() results and adds it to a dictionary.
-  
-  Args:
-      results (dict): Google Search results
-      urls (dict): URL dictionary in form {"actual_url": Boolean (processed or not)}
-  """
-  for result in results:
-    if result["link"] not in urls:
-      urls[result["link"]] = False
-
 def main():
   # Get arguments
   try:
@@ -85,13 +73,16 @@ def main():
     sys.exit(1)
   
   X = set() # Set of sorted relations. SpanBERT Form: {((subj, relation, obj), confidence)}
-  extracted_tuples = defaultdict(lambda: -1) # Unsorted relations. For SpanBERT use. Form: {(subj, relation, obj): confidence}
+  extracted_tuples = defaultdict(lambda: -1) # Unsorted relations. Form: {(subj, relation, obj): confidence}
   iteration_count = 0
-  urls = dict()
+  previous_urls = set()
   current_query = q
-  previous_queries = [q] # @TODO - could this be a set for O(1) lookups?
+  previous_queries = {q.lower()} # Standardize with lowercase
 
   # For SpanBERT
+  if EXTRACTION_METHOD == "-spanbert":
+    # Load pre-trained SpanBERT model & Extract
+    spanbert = SpanBERT("./pretrained_spanbert")  
   relation_types = {
     1: ("PERSON", "ORGANIZATION"),
     2: ("PERSON", "ORGANIZATION"),
@@ -129,19 +120,22 @@ def main():
   # Iteration Loop
   while len(X) < k:
     # Get URLs from Google Search
+    urls = []
     results = search(GSAPI, GSEID, current_query)['items']
     if results == None:
        print("Error: No results using given query.")
        sys.exit(0)
-    add_urls(results, urls)
+    for result in results:
+      urls.append(result["link"])
 
     # Begin Extraction
-    print(f"=========== Iteration: {iteration_count + 1} - Query: {current_query} ===========")
+    print(f"=========== Iteration: {iteration_count} - Query: {current_query} ===========")
+    iteration_count += 1
     for index, url in enumerate(urls):
-      if urls[url] == False:
+      if url not in previous_urls:
         print(f"URL ( {index + 1} / {len(urls)}): {url}")
-        # @TODO: should this be marked as processed?
-        # urls[url] = True
+        # Mark as processed
+        previous_urls.add(url)
 
         # Get Website Text
         print("\tFetching text from url ...")
@@ -153,7 +147,8 @@ def main():
           # Remove extra chars and spaces
           raw_text = raw_text.strip()
           raw_text = re.sub(r'\s+', ' ', raw_text)
-          raw_text = raw_text.replace('\n', ' ').replace('\t', ' ').replace('\r', ' ').replace('\xa0', ' ')
+          # raw_text = raw_text.replace('\n', ' ').replace('\t', ' ').replace('\r', ' ').replace('\xa0', ' ')
+          raw_text = raw_text.replace('\n', ' ').replace('\xa0', ' ')
 
           # Trim
           if len(raw_text) > 10000:
@@ -174,8 +169,6 @@ def main():
           print(f"Spacy Error for {url[0:25]}... : {e}")
         
         if EXTRACTION_METHOD == "-spanbert":
-          # Load pre-trained SpanBERT model & Extract
-          spanbert = SpanBERT("./pretrained_spanbert")  
           res = extract_relations(doc, spanbert, relation_of_interest, entities_of_interest, t)
           
           # Add to extracted dict. Result in form {(subj, relation, obj): confidence}
@@ -186,9 +179,8 @@ def main():
           # Add to sorted list
           result = set(extracted_tuples.items())
           X = (sorted(result, key=lambda x: x[1], reverse=True))
-          
+
         if EXTRACTION_METHOD == "-gemini":
-          # TODO
           print("\tExtracting relations using Google Gemini...")
           sentences = list(doc.sents)
           res = get_gemini_completion(
@@ -198,44 +190,53 @@ def main():
             extracted_tuples[result] = res[result]
           url_relations = len(res)
           print(f"\tExtracted {url_relations} relations from this website")
-  
+          
+      else:
+        print(f"URL ( {index} / {len(urls)}): {url}")
+        print(f"\t Already seen. Skipping...")
+
     # Get new query
     if len(X) < k:
       if EXTRACTION_METHOD == "-spanbert":
-        for relation in X:
-          new_q = f"{relation[0][0]} {relation[0][2]}"
-          if new_q not in previous_queries:
-            previous_queries.add(new_q)
-            break
-        # No new query extracted
-        print('ISE has "stalled" before retrieving k high-confidence tuples.')
-        break
-
-      elif EXTRACTION_METHOD == "-gemini":
         new_query_found = False
-        for relation in X:
+        for relation in X: 
           new_q = f"{relation[0][0]} {relation[0][2]}"
-          if new_q not in previous_queries:
-            current_query = new_q
-            previous_queries.add(new_q)
+          if new_q.lower() not in previous_queries:
+            current_query = new_q 
+            previous_queries.add(new_q.lower())
             new_query_found = True
             break
         # No new query extracted
         if not new_query_found:
           print('ISE has "stalled" before retrieving k high-confidence tuples.')
           break
-  
+      elif EXTRACTION_METHOD == "-gemini":
+        new_query_found = False
+        for relation in X:# TODO: Did you mean extracted_tuples / meant to use X in the extraction method?
+          new_q = f"{relation[0][0]} {relation[0][2]}"
+          if new_q.lower() not in previous_queries:
+            current_query = new_q
+            previous_queries.add(new_q.lower())
+            new_query_found = True
+            break
+        # No new query extracted
+        if not new_query_found:
+          print('ISE has "stalled" before retrieving k high-confidence tuples.')
+          break
+
   # Return top-k Tuples
   if EXTRACTION_METHOD == "-spanbert":
-    print(f"\n================== ALL RELATIONS for {relation_of_interest} ( {len(res)} ) =================")
-    for relation in X:
-      print(f"Confidence: {relation[1]:.8f} \t| Subject: {relation[0][0]} \t| Object: {relation[0][2]}")
+    print(f"\n================== ALL RELATIONS for {relation_of_interest} ( {len(X)} ) =================")
+    for i, relation in enumerate(X[:k]):
+      print(f"Confidence: {relation[1]:.8f} \t\t\t| Subject: {relation[0][0]} \t\t\t| Object: {relation[0][2]}")
 
   if EXTRACTION_METHOD == "-gemini":
     print(f"\n================== ALL RELATIONS for {readable_relation_names[r]} ({len(X)}) =================")
     # For Gemini, we can return any k tuples (they all have confidence 1.0)
     for i, relation in enumerate(X[:k]):
-      print(f"Confidence: {relation[1]:.8f} \t| Subject: {relation[0][0]} \t| Object: {relation[0][2]}")
+      print(f"Confidence: {relation[1]:.8f} \t\t\t| Subject: {relation[0][0]} \t\t\t| Object: {relation[0][2]}")
+
+  print(f"Total # of iterations = {iteration_count}")
 
 if __name__ == "__main__":
   main()
