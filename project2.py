@@ -250,16 +250,16 @@ def main():
 
       if EXTRACTION_METHOD == "-gemini":
           found_new = False
-          for relation in X:
+          for relation in list(X):
             new_q = f"{relation[0][0]} {relation[0][2]}"
             if new_q.lower() not in previous_queries:
                 current_query = new_q
-                previous_queries.append(new_q)
+                previous_queries.add(new_q)
                 found_new = True
                 break
           if not found_new:
-                  print('ISE has "stalled" before retrieving k high-confidence tuples.')
-                  break
+            print('ISE has "stalled" before retrieving k high-confidence tuples.')
+            break
           
   # Return top-k Tuples
   if EXTRACTION_METHOD == "-spanbert":
@@ -268,14 +268,11 @@ def main():
       print(f"Confidence: {relation[1]:.8f} \t\t\t| Subject: {relation[0][0]} \t\t\t| Object: {relation[0][2]}")
 
   if EXTRACTION_METHOD == "-gemini":
-    print(f"\n================== TOP-{k} GEMINI RELATIONS for {relation_of_interest} ( Total Found: {len(X)} ) =================")
-    result_count = min(len(X), k)
-    print(f"Returning top {result_count} relations:")
-    print(X)
-    # for i in range(result_count):
-    #     relation = X[i]
-    #     print(f"Confidence: {relation[1]:.1f} \t\t| Subject: {relation[0][0]} \t\t| Object: {relation[0][2]}")
-
+    print(f"\n================== all {len(X)} GEMINI RELATIONS for {relation_of_interest} ( Total Found: {len(X)} ) =================")
+    X = list(X)
+    for tup, conf in X:
+       print(f"Subject: {tup[0]} 		| Object: {tup[2]}")
+    
   print(f"Total # of iterations = {iteration_count}")
 
 if __name__ == "__main__":
