@@ -29,9 +29,12 @@ def extract_relations(sentences, relation_type, gemini_api_key, model_name="gemi
 
     relation_name = relation_names[relation_type]
     extracted_relations = {}
-
+    sentence_i = 0
     for sentence in sentences:
-        time.sleep(5)
+        sentence_i +=1
+        if(sentence_i % 5 == 0):
+            print(f"finished processing {sentence_i} documents")
+        time.sleep(3)
         try:
             prompt = f"""Extract '{relation_name}' relations from the following sentence. 
             Sentence: "{sentence.text}"
@@ -135,11 +138,13 @@ def filter_sentences_by_entity_types(sentences, relation_type):
             if "PERSON" in entity_types and ("GPE" in entity_types or "LOC" in entity_types):
                 eligible_sentences.append(sentence)
         else:
+            invalid = False
             entities = required_entities[relation_type]
+            print(f"required entities: {entities}")
             for entity in entities:
                 if entity not in entity_types:
-                    continue
-
-            eligible_sentences.append(sentence)
+                    invalid = True
+            if not invalid:
+                eligible_sentences.append(sentence)
     print(f"Filtered {len(sentences)} sentences down to {len(eligible_sentences)} with required entity types") 
     return eligible_sentences
