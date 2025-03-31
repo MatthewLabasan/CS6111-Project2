@@ -26,11 +26,14 @@ def get_entities(sentence, entities_of_interest):
 
 def extract_relations(doc, spanbert, relation_of_interest, entities_of_interest=None, conf=0.7):
     num_sentences = len([s for s in doc.sents])
+    
+    # 1. Counter Variables and updated print statements
     extracted_sentences = 0
     total_extracted_relations = 0
     print(f"\tExtracted {num_sentences} sentences. Processing each sentence one by one to check for presence of right pair of named entity types; if so, will run the second pipeline ...")
     res = defaultdict(int)
     for index, sentence in enumerate(doc.sents):
+        # 2. Add in progress log
         if index % 5 == 0:
             print(f"\tProcessed {index} / {num_sentences} sentences\n")
         entity_pairs = create_entity_pairs(sentence, entities_of_interest)
@@ -39,15 +42,17 @@ def extract_relations(doc, spanbert, relation_of_interest, entities_of_interest=
             examples.append({"tokens": ep[0], "subj": ep[1], "obj": ep[2]})
             examples.append({"tokens": ep[0], "subj": ep[2], "obj": ep[1]})
 
+        # 3. Add check to prevent SpanBERT from running on empty examples
         if examples:
             preds = spanbert.predict(examples)
             for ex, pred in list(zip(examples, preds)):
                 relation = pred[0]
                 if relation == 'no_relation':
                     continue
-                if relation == relation_of_interest: # Add relevant relations only
-                    extracted_sentences += 1
-                    total_extracted_relations += 1 # Total value before confidence filter
+                # 4. Add relevant relations only
+                if relation == relation_of_interest: 
+                    extracted_sentences += 1 # Increment counters for print
+                    total_extracted_relations += 1 
                     print("\t\t=== Extracted Relation ===")
                     print("\t\tInput tokens: {}".format(ex['tokens']))
                     subj = ex["subj"][0]
