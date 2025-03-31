@@ -217,17 +217,17 @@ def main():
     # Get new query
     if len(X) < k:
       if EXTRACTION_METHOD == "-spanbert":
-        new_query_found = False
+        found_new = False
         for relation in X: 
           new_q = f"{relation[0][0]} {relation[0][2]}"
           if new_q.lower() not in previous_queries:
             current_query = new_q 
             previous_queries.add(new_q.lower())
-            new_query_found = True
+            found_new = True
             break
-        # No new query extracted
-        print('ISE has "stalled" before retrieving k high-confidence tuples.')
-        break
+        if not found_new:
+           print('ISE has "stalled" before retrieving k high-confidence tuples.')
+           break
 
       if EXTRACTION_METHOD == "-gemini":
           found_new = False
