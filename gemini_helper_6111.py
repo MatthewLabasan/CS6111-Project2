@@ -118,11 +118,11 @@ def filter_sentences_by_entity_types(sentences, relation_type):
     """
     eligible_sentences = []
     
-    relation_types = {
-        1: ("PERSON", "ORGANIZATION"),
-        2: ("PERSON", "ORGANIZATION"),
-        3: ("PERSON", "LOCATION", "CITY", "STATE_OR_PROVINCE", "COUNTRY"),
-        4: ("ORGANIZATION", "PERSON") 
+    required_entities = {
+        1: {"PERSON", "ORG"},
+        2: {"PERSON", "ORG"},
+        3: {"PERSON", "GPE", "LOC"},
+        4: {"ORG", "PERSON"}
     }
     
     for sentence in sentences:
@@ -130,12 +130,15 @@ def filter_sentences_by_entity_types(sentences, relation_type):
         for ent in sentence.ents:
             entity_types.add(ent.label_)
         
-        # Check if sentence has required entity types
-        if relation_type == 3: #lives in relation
+        if relation_type == 3: # lives in
             if "PERSON" in entity_types and ("GPE" in entity_types or "LOC" in entity_types):
                 eligible_sentences.append(sentence)
         else:
-            if relation_types[relation_type].issubset(entity_types):
-                eligible_sentences.append(sentence)
+            required_entities = required_entities[relation_type]
+            for entity in required_entities:
+                if entity not in entity_types:
+                    continue
+
+            eligible_sentences.append(sentence)
     
     return eligible_sentences
