@@ -1,6 +1,7 @@
 # Imports
 import google.generativeai as genai
 import time
+import re
 
 # Apply Gemini API Key
 
@@ -23,7 +24,7 @@ def extract_relations(sentences, relation_type, gemini_api_key, model_name="gemi
     extracted_relations = {}
 
     for sentence in sentences:
-        time.sleep(3)
+        time.sleep(5)
         try:
             prompt = f"""Extract '{relation_name}' relations from the following sentence. 
             Sentence: "{sentence.text}"
@@ -42,6 +43,8 @@ def extract_relations(sentences, relation_type, gemini_api_key, model_name="gemi
             }}
 
             If no relations are found, return an empty list: {{"relations": []}}
+
+            please make sure to return just the JSON with no additional comment or text
             """
             
             response = model.generate_content(prompt)
@@ -49,19 +52,28 @@ def extract_relations(sentences, relation_type, gemini_api_key, model_name="gemi
             
             import json
             try:
-                data = json.loads(response_text)
-                for relation in data.get("relations", []):
-                    subject = relation.get("subject")
-                    obj = relation.get("object")
-                    
-                    if subject and obj:
-                        relation_tuple = (subject, relation_name, obj)
-                        extracted_relations[relation_tuple] = 1.0
-                        
+                data = json.loads(response_text)  
             except json.JSONDecodeError as e:
-                print(f"\t\tError parsing Gemini response as JSON: {e}")
-                print(f"\t\tResponse text: {response_text}")
+                json_str = extract_json_from_text(response_text)
+                if json_str:
+                    try:
+                        data = json.loads(json_str)
+                    except json.JSONDecodeError as e:
+                        print(f"\t\tError parsing extracted JSON: {e}")
+                        print(f"\t\tExtracted JSON: {json_str}")
+                        continue
+                else:
+                    print(f"\t\tCould not find valid JSON in response")
+                    print(f"\t\tResponse text: {response_text}")
+                    continue
+            
+            for relation in data.get("relations", []):
+                subject = relation.get("subject")
+                obj = relation.get("object")
                 
+                if subject and obj:
+                    relation_tuple = (subject, relation_name, obj)
+                    extracted_relations[relation_tuple] = 1.0
         except Exception as e:
             print(f"\t\tError calling Gemini API: {e}")
             if "429" in str(e) or "500" in str(e):
@@ -69,6 +81,7 @@ def extract_relations(sentences, relation_type, gemini_api_key, model_name="gemi
                 time.sleep(10)
     
     return extracted_relations
+<<<<<<< HEAD
 '''
 # Generate response to prompt
 def get_gemini_completion(prompt, model_name="gemini-2.0-flash", max_tokens=200, temperature=0.2, top_p=1, top_k=32):
@@ -107,3 +120,18 @@ extracted:"""
 
 main()
 '''
+=======
+
+def extract_json_from_text(text):
+    """
+    Extracts JSON data from text that might contain explanations and other content.
+    """
+    # JSON patterns between triple backticks
+    json_pattern = r"```(?:json)?\s*(\{.*?\})\s*```"
+    match = re.search(json_pattern, text, re.DOTALL)
+    
+    if match:
+        return match.group(1)
+    
+    return None
+>>>>>>> 9930d66604d629a37b9dc5628621caf1b1264bec
