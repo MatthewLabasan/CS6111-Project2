@@ -194,26 +194,6 @@ def main():
           X = (sorted(result, key=lambda x: x[1], reverse=True))
           
         elif EXTRACTION_METHOD == "-gemini":
-          '''
-           if -gemini is specified, identify all the tuples that have been extracted and add 
-           them to set X (we do not receive extraction confidence values from the Google Gemini API,
-             so feel free to hard-code in a value of 1.0 for the confidence value for all 
-             Gemini-extracted tuples).
-
-              If -gemini is specified, your output can have the tuples in any order (if you have more 
-              than k tuples, then you can return an arbitrary subset of k tuples). (Alternatively, 
-              you can return all of the tuples in X, not just the top-k such tuples; 
-              this is what the reference implementation does.)
-
-              Otherwise, select from X a tuple y such that (1) y has not been used for querying yet 
-              and (2) if -spanbert is specified, y has an extraction confidence that is highest among
-                the tuples in X that have not yet been used for querying. (You can break ties
-                arbitrarily.) Create a query q from tuple y by just concatenating the attribute values
-                  together, and go to Step 2. If no such y tuple exists, then stop. (ISE has 
-                  "stalled" before retrieving k high-confidence tuples.)
-
-          '''
-
           print("\tExtracting relations using Google Gemini...")
           sentences = doc.sents
           eligible_sentences = filter_sentences_by_entity_types(sentences, r)
@@ -250,13 +230,15 @@ def main():
 
       if EXTRACTION_METHOD == "-gemini":
           found_new = False
+          common_nouns = ['he', 'she', 'they', 'it', 'them', 'him', 'her', 'there', 'school', 'work', 'company']
           for relation in list(X):
-            new_q = f"{relation[0][0]} {relation[0][2]}"
-            if new_q.lower() not in previous_queries:
-                current_query = new_q
-                previous_queries.add(new_q)
-                found_new = True
-                break
+            if relation[0][0] not in common_nouns and relation[0][2] not in common_nouns:
+              new_q = f"{relation[0][0]} {relation[0][2]}"
+              if new_q.lower() not in previous_queries:
+                  current_query = new_q
+                  previous_queries.add(new_q.lower())
+                  found_new = True
+                  break
           if not found_new:
             print('ISE has "stalled" before retrieving k high-confidence tuples.')
             break
