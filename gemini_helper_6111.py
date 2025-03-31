@@ -134,8 +134,8 @@ def filter_sentences_by_entity_types(sentences, relation_type):
             if "PERSON" in entity_types and ("GPE" in entity_types or "LOC" in entity_types):
                 eligible_sentences.append(sentence)
         else:
-            required_entities = required_entities[relation_type]
-            for entity in required_entities:
+            entities = required_entities[relation_type]
+            for entity in entities:
                 if entity not in entity_types:
                     continue
 
