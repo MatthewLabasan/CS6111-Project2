@@ -51,7 +51,7 @@ Developed by Matthew Labasan and Phoebe Tang.
     - `pip3 install -r requirements.txt`  
     - `bash download_finetuned.sh`  
 7. Remove this file from the SpanBERT repository  
-  `rm spacy_help_functions.py`
+    - `rm spacy_help_functions.py`
 8. Move these files in `/CS6111-Project2` into `/SpanBERT`  
     - `cd ..`  
     - `mv gemini_helper_6111.py ./SpanBERT`  
