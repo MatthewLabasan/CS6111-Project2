@@ -2,7 +2,7 @@
 # Table of Contents
 1. [Introduction](#introduction)
 2. [Getting Started](#getting-started)
-    - [Prerequisites](#prerequisits)
+    - [Prerequisites](#prerequisites)
     - [Installation](#installation)
 3. [Usage](#usage)
 4. [Description of Project](#description-of-project)
