@@ -1,0 +1,236 @@
+Parameters:
+  Client key:  = XXXXXXXX
+  Engine key:  = XXXXXXXX
+  Gemini key:  = XXXXXXXX
+  Mehod:       = -gemini
+  Relation:    = 2
+  Threshold:   = 0.0
+  Query:       = bill gates microsoft
+  # of Tuples: = 10
+  Loading necessary libraries; This should take a minute or so ...
+  
+=========== Iteration: 0 - Query: bill gates microsoft ===========
+URL ( 1 / 10): https://en.wikipedia.org/wiki/Bill_Gates
+        Fetching text from url ...
+        Trimming webpage content from 146283 to 10000 characters
+        Webpage length (num characters): 10000
+        Annotating the webpage using spacy...
+        Extracting relations using Google Gemini...
+Filtered 48 sentences down to 13 with required entity types
+
+                    === Extracted Relation ===
+                    Sentence:  Bill Gates - Wikipedia Jump to content Main menu Main menu move to sidebar hide Navigation Main pageContentsCurrent eventsRandom articleAbout
+                    Subject: Bill Gates ; Object: Wikipedia ;
+                    Adding to set of extracted relations
+                    ==========
+
+                    === Extracted Relation ===
+                    Sentence:  Bill GatesGates in 2024BornWilliam Henry Gates III (1955-10-28) October 28, 1955 (age 69)Seattle, Washington, U.S.EducationHarvard University (dropped out)OccupationsBusinessmanphilanthropistcomputer programmerwriterYears active1972–presentKnown for Pioneer of the personal computer revolution with Paul Allen Co-founding of Microsoft and Gates Foundation Title See list Chair of the Gates Foundation Chairman and founder of Cascade Investment Chairman and founder of Branded Entertainment Network Chairman and co-founder of TerraPower Founder of Breakthrough Energy Founder of Gates Ventures Technology advisor of Microsoft Spouse Melinda French ​ ​(m. 1994; div.
+                    Subject: Bill Gates ; Object: Gates Foundation ;
+                    Adding to set of extracted relations
+                    ==========
+
+                    === Extracted Relation ===
+                    Sentence:  Bill GatesGates in 2024BornWilliam Henry Gates III (1955-10-28) October 28, 1955 (age 69)Seattle, Washington, U.S.EducationHarvard University (dropped out)OccupationsBusinessmanphilanthropistcomputer programmerwriterYears active1972–presentKnown for Pioneer of the personal computer revolution with Paul Allen Co-founding of Microsoft and Gates Foundation Title See list Chair of the Gates Foundation Chairman and founder of Cascade Investment Chairman and founder of Branded Entertainment Network Chairman and co-founder of TerraPower Founder of Breakthrough Energy Founder of Gates Ventures Technology advisor of Microsoft Spouse Melinda French ​ ​(m. 1994; div.
+                    Subject: Bill Gates ; Object: Cascade Investment ;
+                    Adding to set of extracted relations
+                    ==========
+
+                    === Extracted Relation ===
+                    Sentence:  Bill GatesGates in 2024BornWilliam Henry Gates III (1955-10-28) October 28, 1955 (age 69)Seattle, Washington, U.S.EducationHarvard University (dropped out)OccupationsBusinessmanphilanthropistcomputer programmerwriterYears active1972–presentKnown for Pioneer of the personal computer revolution with Paul Allen Co-founding of Microsoft and Gates Foundation Title See list Chair of the Gates Foundation Chairman and founder of Cascade Investment Chairman and founder of Branded Entertainment Network Chairman and co-founder of TerraPower Founder of Breakthrough Energy Founder of Gates Ventures Technology advisor of Microsoft Spouse Melinda French ​ ​(m. 1994; div.
+                    Subject: Bill Gates ; Object: Branded Entertainment Network ;
+                    Adding to set of extracted relations
+                    ==========
+
+                    === Extracted Relation ===
+                    Sentence:  Bill GatesGates in 2024BornWilliam Henry Gates III (1955-10-28) October 28, 1955 (age 69)Seattle, Washington, U.S.EducationHarvard University (dropped out)OccupationsBusinessmanphilanthropistcomputer programmerwriterYears active1972–presentKnown for Pioneer of the personal computer revolution with Paul Allen Co-founding of Microsoft and Gates Foundation Title See list Chair of the Gates Foundation Chairman and founder of Cascade Investment Chairman and founder of Branded Entertainment Network Chairman and co-founder of TerraPower Founder of Breakthrough Energy Founder of Gates Ventures Technology advisor of Microsoft Spouse Melinda French ​ ​(m. 1994; div.
+                    Subject: Bill Gates ; Object: TerraPower ;
+                    Adding to set of extracted relations
+                    ==========
+
+                    === Extracted Relation ===
+                    Sentence:  Bill GatesGates in 2024BornWilliam Henry Gates III (1955-10-28) October 28, 1955 (age 69)Seattle, Washington, U.S.EducationHarvard University (dropped out)OccupationsBusinessmanphilanthropistcomputer programmerwriterYears active1972–presentKnown for Pioneer of the personal computer revolution with Paul Allen Co-founding of Microsoft and Gates Foundation Title See list Chair of the Gates Foundation Chairman and founder of Cascade Investment Chairman and founder of Branded Entertainment Network Chairman and co-founder of TerraPower Founder of Breakthrough Energy Founder of Gates Ventures Technology advisor of Microsoft Spouse Melinda French ​ ​(m. 1994; div.
+                    Subject: Bill Gates ; Object: Breakthrough Energy ;
+                    Adding to set of extracted relations
+                    ==========
+
+                    === Extracted Relation ===
+                    Sentence:  Bill GatesGates in 2024BornWilliam Henry Gates III (1955-10-28) October 28, 1955 (age 69)Seattle, Washington, U.S.EducationHarvard University (dropped out)OccupationsBusinessmanphilanthropistcomputer programmerwriterYears active1972–presentKnown for Pioneer of the personal computer revolution with Paul Allen Co-founding of Microsoft and Gates Foundation Title See list Chair of the Gates Foundation Chairman and founder of Cascade Investment Chairman and founder of Branded Entertainment Network Chairman and co-founder of TerraPower Founder of Breakthrough Energy Founder of Gates Ventures Technology advisor of Microsoft Spouse Melinda French ​ ​(m. 1994; div.
+                    Subject: Bill Gates ; Object: Gates Ventures ;
+                    Adding to set of extracted relations
+                    ==========
+
+                    === Extracted Relation ===
+                    Sentence:  Bill GatesGates in 2024BornWilliam Henry Gates III (1955-10-28) October 28, 1955 (age 69)Seattle, Washington, U.S.EducationHarvard University (dropped out)OccupationsBusinessmanphilanthropistcomputer programmerwriterYears active1972–presentKnown for Pioneer of the personal computer revolution with Paul Allen Co-founding of Microsoft and Gates Foundation Title See list Chair of the Gates Foundation Chairman and founder of Cascade Investment Chairman and founder of Branded Entertainment Network Chairman and co-founder of TerraPower Founder of Breakthrough Energy Founder of Gates Ventures Technology advisor of Microsoft Spouse Melinda French ​ ​(m. 1994; div.
+                    Subject: Bill Gates ; Object: Microsoft ;
+                    Adding to set of extracted relations
+                    ==========
+Processed 5 / 13 sentences
+
+                    === Extracted Relation ===
+                    Sentence:  A pioneer of the microcomputer revolution of the 1970s and 1980s, he co-founded the software company Microsoft in 1975 with his childhood friend Paul Allen.
+                    Subject: Paul Allen ; Object: Microsoft ;
+                    Adding to set of extracted relations
+                    ==========
+
+                    === Extracted Relation ===
+                    Sentence:  Born and raised in Seattle, Washington, Gates was privately educated at Lakeside School, where he befriended other students with strong computing interests, including Allen and Ric Weiland.
+                    Subject: Gates ; Object: Lakeside School ;
+                    Adding to set of extracted relations
+                    ==========
+
+                    === Extracted Relation ===
+                    Sentence:  He stepped down as chairman of the board of directors in 2014 and became technology adviser to CEO Satya Nadella and other Microsoft leaders, a position he still holds.
+                    Subject: Satya Nadella ; Object: Microsoft ;
+                    Adding to set of extracted relations
+                    ==========
+
+                    === Extracted Relation ===
+                    Sentence:  Over time, he has reduced his role at Microsoft to focus on his philanthropic work with the Bill & Melinda Gates Foundation, the world's largest private charitable organization, which he and his then-wife Melinda French Gates established in 2000.
+                    Subject: Bill Gates ; Object: Microsoft ;
+                    Adding to set of extracted relations
+                    ==========
+
+                    === Extracted Relation ===
+                    Sentence:  Gates is founder and chairman of several other companies, including BEN, Cascade Investment, TerraPower, Gates Ventures, and Breakthrough Energy.
+                    Subject: Gates ; Object: BEN ;
+                    Adding to set of extracted relations
+                    ==========
+
+                    === Extracted Relation ===
+                    Sentence:  Gates is founder and chairman of several other companies, including BEN, Cascade Investment, TerraPower, Gates Ventures, and Breakthrough Energy.
+                    Subject: Gates ; Object: Cascade Investment ;
+                    Adding to set of extracted relations
+                    ==========
+
+                    === Extracted Relation ===
+                    Sentence:  Gates is founder and chairman of several other companies, including BEN, Cascade Investment, TerraPower, Gates Ventures, and Breakthrough Energy.
+                    Subject: Gates ; Object: TerraPower ;
+                    Adding to set of extracted relations
+                    ==========
+
+                    === Extracted Relation ===
+                    Sentence:  Gates is founder and chairman of several other companies, including BEN, Cascade Investment, TerraPower, Gates Ventures, and Breakthrough Energy.
+                    Subject: Gates ; Object: Gates Ventures ;
+                    Adding to set of extracted relations
+                    ==========
+
+                    === Extracted Relation ===
+                    Sentence:  Gates is founder and chairman of several other companies, including BEN, Cascade Investment, TerraPower, Gates Ventures, and Breakthrough Energy.
+                    Subject: Gates ; Object: Breakthrough Energy ;
+                    Adding to set of extracted relations
+                    ==========
+Processed 10 / 13 sentences
+
+                    === Extracted Relation ===
+                    Sentence:  The family encouraged competition; one visitor reported that "it didn't matter whether it was hearts or pickleball or swimming to the dock; there was always a reward for winning and there was always a penalty for losing".[13] Gates (right) with Paul Allen seated at Teletype Model 33 ASR terminals in Lakeside School, 1970 At age 13, he enrolled in the private Lakeside prep school.[14][15]
+                    Subject: Gates ; Object: Lakeside School ;
+                    Adding to set of extracted relations
+                    ==========
+
+                    === Extracted Relation ===
+                    Sentence:  The family encouraged competition; one visitor reported that "it didn't matter whether it was hearts or pickleball or swimming to the dock; there was always a reward for winning and there was always a penalty for losing".[13] Gates (right) with Paul Allen seated at Teletype Model 33 ASR terminals in Lakeside School, 1970 At age 13, he enrolled in the private Lakeside prep school.[14][15]
+                    Subject: Paul Allen ; Object: Lakeside School ;
+                    Adding to set of extracted relations
+                    ==========
+
+                    === Extracted Relation ===
+                    Sentence:  Gates took an interest in programming the GE system in BASIC, and he was excused from math classes to pursue his interest.
+                    Subject: Gates ; Object: GE ;
+                    Adding to set of extracted relations
+                    ==========
+        Found 18 relations in this webpage
+Overall size of entities: 18
+URL ( 2 / 10): https://www.instagram.com/thisisbillgates/?hl=en
+        Fetching text from url ...
+        Webpage length (num characters): 0
+        Annotating the webpage using spacy...
+        Extracting relations using Google Gemini...
+Filtered 0 sentences down to 0 with required entity types
+No sentences with required entity types found for relation type 2
+URL ( 3 / 10): https://x.com/billgates
+        Fetching text from url ...
+        Webpage length (num characters): 249
+        Annotating the webpage using spacy...
+        Extracting relations using Google Gemini...
+Filtered 4 sentences down to 0 with required entity types
+No sentences with required entity types found for relation type 2
+URL ( 4 / 10): https://www.youtube.com/billgates
+        Fetching text from url ...
+        Webpage length (num characters): 171
+        Annotating the webpage using spacy...
+        Extracting relations using Google Gemini...
+Filtered 1 sentences down to 1 with required entity types
+
+                    === Extracted Relation ===
+                    Sentence:  Bill Gates - YouTubeAboutPressCopyrightContact usCreatorsAdvertiseDevelopersTermsPrivacyPolicy & SafetyHow YouTube worksTest new featuresNFL Sunday Ticket© 2025 Google LLC
+                    Subject: Bill Gates ; Object: YouTube ;
+                    Adding to set of extracted relations
+                    ==========
+        Found 1 relations in this webpage
+Overall size of entities: 19
+URL ( 5 / 10): https://www.gatesnotes.com/
+        Fetching text from url ...
+        Webpage length (num characters): 212
+        Annotating the webpage using spacy...
+        Extracting relations using Google Gemini...
+Filtered 2 sentences down to 0 with required entity types
+No sentences with required entity types found for relation type 2
+URL ( 6 / 10): https://news.microsoft.com/2020/03/13/microsoft-announces-change-to-its-board-of-directors/
+        Fetching text from url ...
+        Webpage length (num characters): 33
+        Annotating the webpage using spacy...
+        Extracting relations using Google Gemini...
+Filtered 1 sentences down to 0 with required entity types
+No sentences with required entity types found for relation type 2
+URL ( 7 / 10): https://www.linkedin.com/in/williamhgates
+        Fetching text from url ...
+        Webpage length (num characters): 0
+        Annotating the webpage using spacy...
+        Extracting relations using Google Gemini...
+Filtered 0 sentences down to 0 with required entity types
+No sentences with required entity types found for relation type 2
+URL ( 8 / 10): https://news.microsoft.com/2006/06/15/microsoft-announces-plans-for-july-2008-transition-for-bill-gates/
+        Fetching text from url ...
+        Webpage length (num characters): 33
+        Annotating the webpage using spacy...
+        Extracting relations using Google Gemini...
+Filtered 1 sentences down to 0 with required entity types
+No sentences with required entity types found for relation type 2
+URL ( 9 / 10): https://www.microsoft.com/
+        Fetching text from url ...
+        Webpage length (num characters): 1999
+        Annotating the webpage using spacy...
+        Extracting relations using Google Gemini...
+Filtered 13 sentences down to 1 with required entity types
+        Found 0 relations in this webpage
+Overall size of entities: 19
+URL ( 10 / 10): https://answers.microsoft.com/en-us/windows/forum/all/a-short-letter-to-bill-gates/59fdd4d0-6330-40da-9e66-fa6c29836454
+        Fetching text from url ...
+        Webpage length (num characters): 11
+        Annotating the webpage using spacy...
+        Extracting relations using Google Gemini...
+Filtered 1 sentences down to 0 with required entity types
+No sentences with required entity types found for relation type 2
+
+================== all 19 GEMINI RELATIONS for per:employee_of ( Total Found: 19 ) =================
+Subject: Bill Gates             | Object: Microsoft
+Subject: Bill Gates             | Object: Gates Ventures
+Subject: Gates          | Object: Breakthrough Energy
+Subject: Bill Gates             | Object: Gates Foundation
+Subject: Gates          | Object: GE
+Subject: Bill Gates             | Object: Branded Entertainment Network
+Subject: Gates          | Object: Cascade Investment
+Subject: Paul Allen             | Object: Lakeside School
+Subject: Gates          | Object: Lakeside School
+Subject: Paul Allen             | Object: Microsoft
+Subject: Gates          | Object: TerraPower
+Subject: Gates          | Object: Gates Ventures
+Subject: Bill Gates             | Object: Wikipedia
+Subject: Gates          | Object: BEN
+Subject: Satya Nadella          | Object: Microsoft
+Subject: Bill Gates             | Object: Breakthrough Energy
+Subject: Bill Gates             | Object: Cascade Investment
+Subject: Bill Gates             | Object: YouTube
+Subject: Bill Gates             | Object: TerraPower
+Total # of iterations = 1
