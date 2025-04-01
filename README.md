@@ -36,8 +36,8 @@ Developed by Matthew Labasan and Phoebe Tang.
 2. Move into the respository  
   `cd ./CS6111-Project2`  
 3. Create a virtual environment and activate it  
-  `python3 -m venv dbproj`  
-  `source dbproj/bin/activate`  
+    - `python3 -m venv dbproj`  
+    - `source dbproj/bin/activate`  
 4. Install requirements.txt
 5. Install trained SpanBERT
   The SpanBERT classifier will be used to extract the following four types of relations from text documents:
@@ -46,18 +46,18 @@ Developed by Matthew Labasan and Phoebe Tang.
     - Live_In (internal name: per:cities_of_residence)
     - Top_Member_Employees (internal name: org:top_members/employees)
   Run the following code to install it:  
-  `git clone https://github.com/Shreyas200188/SpanBERT`  
-  `cd SpanBERT`  
-  `pip3 install -r requirements.txt`  
-  `bash download_finetuned.sh`  
+    - `git clone https://github.com/Shreyas200188/SpanBERT`  
+    - `cd SpanBERT`  
+    - `pip3 install -r requirements.txt`  
+    - `bash download_finetuned.sh`  
 6. Remove this file from the SpanBERT repository  
   `rm spacy_help_functions.py`
 7. Move these files in `/CS6111-Project2` into `/SpanBERT`  
-  `cd ..`  
-  `mv gemini_helper_6111.py ./SpanBERT`  
-  `mv project2.py ./SpanBERT`  
-  `mv spacy_help_functions.py ./SpanBERT`  
-  `cd SpanBERT`  
+    - `cd ..`  
+    - `mv gemini_helper_6111.py ./SpanBERT`  
+    - `mv project2.py ./SpanBERT`  
+    - `mv spacy_help_functions.py ./SpanBERT`  
+    - `cd SpanBERT`  
 
 __Note__: For specific instructions on installation on a Google VM instance, view the [course website](https://www.cs.columbia.edu/~gravano/cs6111/Proj2/).
 
