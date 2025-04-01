@@ -1,5 +1,3 @@
-(dbproj) mjl2278@project2:/home/ft2619/proj2/SpanBERT$ python3 project2.py -spanbert AIzaSyBqZbQ2QiUhCA2j1MXFOTJJrKBN0ZT5F2I 7595431b052b84caf AIzaSyBnT89ppwjFB1AoVaLKjn9HSC7xj9I0c4o 2 0.7 "bill gates microsoft" 10
-100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 213450/213450 [00:00<00:00, 3806486.43B/s]
 Loading pre-trained spanBERT from ./pretrained_spanbert
 Parameters:
   Client key:  = XXXXXXXX
