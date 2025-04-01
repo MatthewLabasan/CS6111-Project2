@@ -44,7 +44,8 @@ Developed by Matthew Labasan and Phoebe Tang.
     - Schools_Attended (internal name: per:schools_attended)
     - Work_For (internal name: per:employee_of)
     - Live_In (internal name: per:cities_of_residence)
-    - Top_Member_Employees (internal name: org:top_members/employees)
+    - Top_Member_Employees (internal name: org:top_members/employees)  
+    
   Run the following code to install it:  
     - `git clone https://github.com/Shreyas200188/SpanBERT`  
     - `cd SpanBERT`  
