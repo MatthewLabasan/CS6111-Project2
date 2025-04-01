@@ -41,10 +41,10 @@ Developed by Matthew Labasan and Phoebe Tang.
 4. Install requirements.txt
 5. Install trained SpanBERT
     The SpanBERT classifier will be used to extract the following four types of relations from text documents:
-    - Schools_Attended (internal name: per:schools_attended)
-    - Work_For (internal name: per:employee_of)
-    - Live_In (internal name: per:cities_of_residence)
-    - Top_Member_Employees (internal name: org:top_members/employees)  
+    a. Schools_Attended (internal name: per:schools_attended)
+    b. Work_For (internal name: per:employee_of)
+    c. Live_In (internal name: per:cities_of_residence)
+    d. Top_Member_Employees (internal name: org:top_members/employees)  
     Run the following code to install it:  
     - `git clone https://github.com/Shreyas200188/SpanBERT`  
     - `cd SpanBERT`  
