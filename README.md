@@ -65,14 +65,14 @@ __Note__: For specific instructions on installation on a Google VM instance, vie
 1. Run & replace with your parameters, using a query in quotations: 
  `python3 project2.py [-spanbert|-gemini] <google api key> <google engine id> <google gemini api key> <r> <t> <q> <k>`
     - [-spanbert|-gemini] is either -spanbert or -gemini, to indicate which relation extraction method we are requesting>
-    - <google api key> is your Google Custom Search Engine JSON API Key (see above)
-    - <google engine id> is your Google Custom Search Engine ID (see above)
-    - <google gemini api key> is your Google Gemini API key (see above)
-    - <r> is an integer between 1 and 4, indicating the relation to extract: 1 is for Schools_Attended, 2 is for Work_For, 3 is for Live_In, and 4 is for Top_Member_Employees
-    - <t> is a real number between 0 and 1, indicating the "extraction confidence threshold," which is the minimum extraction confidence that we request for the tuples in the output; t is ignored if we are specifying -gemini
-    - <q> is a "seed query," which is a list of words in double quotes corresponding to a plausible tuple for the relation to extract (e.g., "bill gates microsoft" for relation Work_For)
-    - <k> is an integer greater than 0, indicating the number of tuples that we request in the output
-    - Example usage: python3 project2.py -gemini <google api key> <google engine id> <google gemini api key> 1 0.8 “Obama Columbia” 10
+    - `<google api key>` is your Google Custom Search Engine JSON API Key (see above)
+    - `<google engine id>` is your Google Custom Search Engine ID (see above)
+    - `<google gemini api key>` is your Google Gemini API key (see above)
+    - `<r>` is an integer between 1 and 4, indicating the relation to extract: 1 is for Schools_Attended, 2 is for Work_For, 3 is for Live_In, and 4 is for Top_Member_Employees
+    - `<t>` is a real number between 0 and 1, indicating the "extraction confidence threshold," which is the minimum extraction confidence that we request for the tuples in the output; t is ignored if we are specifying -gemini
+    - `<q>` is a "seed query," which is a list of words in double quotes corresponding to a plausible tuple for the relation to extract (e.g., "bill gates microsoft" for relation Work_For)
+    - `<k>` is an integer greater than 0, indicating the number of tuples that we request in the output
+    - Example usage: `python3 project2.py -gemini <google api key> <google engine id> <google gemini api key> 1 0.8 “Obama Columbia” 10`
 
 # Description of Project
 ## Internal Design
