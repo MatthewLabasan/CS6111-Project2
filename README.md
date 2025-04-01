@@ -45,11 +45,11 @@ Developed by Matthew Labasan and Phoebe Tang.
     - Work_For (internal name: per:employee_of)
     - Live_In (internal name: per:cities_of_residence)
     - Top_Member_Employees (internal name: org:top_members/employees)  
-  Run the following code to install it:  
-    - `git clone https://github.com/Shreyas200188/SpanBERT`  
-    - `cd SpanBERT`  
-    - `pip3 install -r requirements.txt`  
-    - `bash download_finetuned.sh`  
+Run the following code to install it:  
+- `git clone https://github.com/Shreyas200188/SpanBERT`  
+- `cd SpanBERT`  
+- `pip3 install -r requirements.txt`  
+- `bash download_finetuned.sh`  
 6. Remove this file from the SpanBERT repository  
   `rm spacy_help_functions.py`
 7. Move these files in `/CS6111-Project2` into `/SpanBERT`  
