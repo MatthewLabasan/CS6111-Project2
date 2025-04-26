@@ -77,7 +77,7 @@ __Note__: For specific instructions on installation on a Google VM instance, vie
 # Description of Project
 ## Internal Design
 For a description of the internal design and SpanBERT / Gemini extraction methods, please see p.4-8 of our report [here](./transcripts/Project2_Report.pdf).
-For sample transcrips and usage, please see our result transcripts for each LLM [here](./transcripts).
+For sample transcripts and usage, please see our result transcripts for each LLM [here](./transcripts).
 
 ### Notable External Libraries Used
 1. `googleapiclient`: For Google Search
